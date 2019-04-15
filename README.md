@@ -1,4 +1,4 @@
-##Assignment
+## Assignment
 
 Create a search application where you expose an endpoint for a client to search based on a certain radius for tree related data.
 
@@ -21,39 +21,39 @@ Output
 
 ```
 
-##Solution
+## Solution
 I want to describe some of my decisions and approaches. 
 I imagined that many people use our service, so I focused on performance.
 
-###1. MapStruct
+### 1. MapStruct
 I used MapStruct code generator for mapping objects.
    So I would ask you to enable 'Enable annotation processing'.  
    - Intellij Idea: File -> Settings -> Build, Execution, Deployment -> Compiler -> Annotation Processors - enable checkbox 'Enable annotation processing'.  
    - Eclipse: Properties -> Open Java Compiler -> Annotation Processing. Check "Enable annotation processing". (but I did not check it)
 
 
-###2. Double vs BigDecimal?
+### 2. Double vs BigDecimal?
 I have chosen Double as the type for Tree coordinates.
 because:
 - BigDecimal is more suitable for situations where precision is really important, for example for money operations or some scientific calculating.
 In our situation, I don`t think that precision by millimeters is important.
 - Operations with BigDecimal is slower than with Double.
 
-###3. Cache for Rest endpoint? 
+### 3. Cache for Rest endpoint? 
 I believe that cache is not needed here.
 Because we have huge number of coordinates and radius, the probability that somebody write same values is little.
 Cache is more suitable if there are a lot of same inputs.
 
-###4. Algorithms for searching.
+### 4. Algorithms for searching.
 
-####4.1 Simple Traverse Algorithm (STA).
+#### 4.1 Simple Traverse Algorithm (STA).
 It traverses all points and checks the distance from a point to the center.
 
-####4.2 Cutoff Algorithm (CA)
+#### 4.2 Cutoff Algorithm (CA)
 I have invented a new Algorithm and called it Cutoff Algorithm.
 It is much faster than the Simple Traverse Algorithm.
 
-#####4.2.1 Given data for CA.
+##### 4.2.1 Given data for CA.
 - We have a list of trees.  
 - Tree has coordinates x and y.  
 - xc and yc - x and y coordinate of the center respectively.  
@@ -69,7 +69,7 @@ We can be sure in next points:
 - If a tree has y coordinate satisfy condition (y >= yc - r) && (y <= yc + r) => this tree may or may not belong the circle.
 We can imagine square around the circle and condition above checks whether a point belongs to the square.
 
-#####4.2.2 Description of the CA.
+##### 4.2.2 Description of the CA.
 1) sort tree list by x coordinate ascending (T1).
 2) find all points which satisfy condition (x >= xc - r) && (x <= xc + r).
 And here is a trick. We can do it by sorted tree list and binary search.  
@@ -82,12 +82,12 @@ So we have list T3. There are all trees enclosed in the square around the circle
 size T3 < T2  
 4) Traverse by T3, check the distance to the center and get the result.
 
-####4.3 Comparison of CA and STA.
+#### 4.3 Comparison of CA and STA.
 I implemented a benchmark/statistics test and compared two algorithms.
 You can find it here com.holidu.interview.assignment.service.TreeDataSearchServicePerfomanceBenchmark
 in the benchmark directory.
 
-#####4.3.1 Given data.
+##### 4.3.1 Given data.
   
 - There is a plot 100_000 x 100_000 meters (MAX_X x MAX_Y).  
 - Center is (50_000;50_000) (CENTER_X;CENTER_Y)  
@@ -97,7 +97,7 @@ in the benchmark directory.
 I compared two algorithms for every situation.
 Every experiment runs 10_000 times (MAX_EXP).
 
-#####4.3.2 Comparison results.
+##### 4.3.2 Comparison results.
 ```
 There is results:
 Tree count = 1000:
@@ -133,7 +133,7 @@ But I believe it is a rare situation that somebody input so big radius.
 
 So in general situation, CA is better than STA.
 
-###5. Endpoint
+### 5. Endpoint
 I exposed the rest endpoint here
 ```
 http://localhost:8080/holidu-test-task/tree/count?coord=COORD_X;COORD_Y&radius=RADIUS
