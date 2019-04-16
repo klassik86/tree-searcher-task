@@ -13,7 +13,7 @@ public class HealthCheckController {
             value = "/"
     )
     public String healthCheck() {
-        return "Greetings from the Holidu interview assignment!";
+        return "Greetings from the Company interview assignment!";
     }
 
 }
