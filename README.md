@@ -84,7 +84,7 @@ size T3 < T2
 
 #### 4.3 Comparison of CA and STA.
 I implemented a benchmark/statistics test and compared two algorithms.
-You can find it here com.holidu.interview.assignment.service.TreeDataSearchServicePerfomanceBenchmark
+You can find it here com.company.interview.assignment.service.TreeDataSearchServicePerfomanceBenchmark
 in the benchmark directory.
 
 ##### 4.3.1 Given data.
@@ -136,11 +136,11 @@ So in general situation, CA is better than STA.
 ### 5. Endpoint
 I exposed the rest endpoint here
 ```
-http://localhost:8080/holidu-test-task/tree/count?coord=COORD_X;COORD_Y&radius=RADIUS
+http://localhost:8080/company-test-task/tree/count?coord=COORD_X;COORD_Y&radius=RADIUS
 ```  
 You said that the radius unit is meter. Therefore I decided that all coordinates must be in meters also.
 
 example of call:
 ```  
-http://localhost:8080/holidu-test-task/tree/count?coord=313164;61800&radius=1000
+http://localhost:8080/company-test-task/tree/count?coord=313164;61800&radius=1000
 ```

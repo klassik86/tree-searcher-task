@@ -21,7 +21,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.holidu.interview.assignment.service.TreeDataSearchService" level="DEBUG"/>
+    <logger name="com.company.interview.assignment.service.TreeDataSearchService" level="DEBUG"/>
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
